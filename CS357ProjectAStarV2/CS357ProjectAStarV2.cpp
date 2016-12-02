@@ -51,7 +51,7 @@ int main()
 		//set up string array: larger than necessary
 		temp = new string[len];
 
-		switch(i)
+		switch(i)//Checks which line it is parsing. 
 		{
 			case 0://finds the set of states
 			{
@@ -121,6 +121,8 @@ int main()
 			}
 			case 2://finds the transitions of the NFA
 			{
+				//Just store this line as a entire string. I will parse it below and put it into a triple array
+				//string[number of states][number of states][3 for the three alphabet charecters]
 				break;
 			}
 			case 3://finds the start state of the NFA
