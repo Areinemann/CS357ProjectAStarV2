@@ -20,7 +20,7 @@ int main()
 {
 	string		sFileName;
 	ifstream	inputFile;
-	nfa*		myNFA		= new nfa;
+	nfa			myNFA;
 	int			i;
 
 
@@ -31,28 +31,71 @@ int main()
 
 	for (i = 0; i < 5; i++)
 	{
-		int j;
-		string	line,
-				temp;
+		int j,
+			len;
+		string	line;
+		string*	temp;
+
+		
 
 		getline(inputFile, line);
+		len = line.size();
+		
+		temp = new string[len];
 
 		switch(i)
 		{
 			case 0:
 			{
-				for (j = 0; j < line.length; j++)
+				int y = 0;
+				for (j = 0; j < len; j++)
 				{
-					if ((line[j] != '{') || (line[j] != '}'))
+					if (line[j] == ',')
 					{
-
+						y++;
+					}
+					else if (line[j] != '\n')
+					{
+						temp[y] = temp[y] + line[j];
 					}
 				}
+
+				y++;
+
+				myNFA.sStates = new string[y];
+
+				for (j = 0; j < y; j++)
+				{
+					myNFA.sStates[j] = temp[j];
+				}
+
+				myNFA.sStates[y - 1] = "Qnewstart";
 
 				break;
 			}
 			case 1:
 			{
+				int y = 0;
+				char* cTemp = new char[len];
+				for (j = 0; j < len; j++)
+				{
+					if (line[j] == ',')
+					{
+						y++;
+					}
+					else if (line[j] != '\n')
+					{
+						cTemp[y] = line[j];
+					}
+				}
+
+				myNFA.cAlfa = new char[y];
+
+				for (j = 0; j < y; j++)
+				{
+					myNFA.cAlfa[j] = cTemp[j];
+				}
+
 				break;
 			}
 			case 2:
@@ -76,7 +119,6 @@ int main()
 
 	inputFile.close();
 
-	delete	myNFA;
     return 0;
 }
 
