@@ -2,6 +2,19 @@
 //
 
 #include "stdafx.h"
+#include <string>
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+struct nfa
+{
+	string* sStates;
+	char*	cAlfa;
+	int		iStart;
+	int*	iFinal;
+};
+
 
 int main()
 {
