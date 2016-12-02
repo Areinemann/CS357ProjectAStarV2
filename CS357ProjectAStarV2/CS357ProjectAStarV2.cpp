@@ -15,6 +15,7 @@ struct nfa
 	int*	iFinal;
 };
 
+
 int main()
 {
 	string		sFileName;
