@@ -17,8 +17,7 @@ struct nfa
 
 int main()
 {
-	string		sFileName,
-				sLine;
+	string		sFileName;
 	ifstream	inputFile;
 	nfa*		myNFA		= new nfa;
 	int			i;
@@ -31,12 +30,16 @@ int main()
 
 	for (i = 0; i < 5; i++)
 	{
-		getline(inputFile, sLine);
+		int j;
+		string line;
+
+		getline(inputFile, line);
 
 		switch(i)
 		{
 			case 0:
 			{
+				for()
 				break;
 			}
 			case 1:
