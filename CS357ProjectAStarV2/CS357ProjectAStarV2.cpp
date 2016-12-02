@@ -20,6 +20,12 @@ struct nfa
 };
 
 
+int printNFA(nfa* nfaToPrint)
+{
+	return 0;
+}
+
+
 int main()
 {
 	//Variables
