@@ -11,7 +11,10 @@ struct nfa
 {
 	string* sStates;
 	char*	cAlfa;
-	int		iStart;
+	int		iStart,
+			iNumStates,
+			iNumAlfa,
+			iNumTrans;
 	int*	iFinal;
 };
 
@@ -45,7 +48,7 @@ int main()
 
 		switch(i)
 		{
-			case 0:
+			case 0://finds the set of states
 			{
 				int y = 0;
 				for (j = 0; j < len; j++)
@@ -71,9 +74,11 @@ int main()
 
 				myNFA.sStates[y - 1] = "Qnewstart";
 
+				myNFA.iNumStates = y;
+
 				break;
 			}
-			case 1:
+			case 1://finds the alphabet of the NFA
 			{
 				int y = 0;
 				char* cTemp = new char[len];
@@ -96,21 +101,43 @@ int main()
 					myNFA.cAlfa[j] = cTemp[j];
 				}
 
+				myNFA.iNumAlfa = y;
+
 				break;
 			}
-			case 2:
+			case 2://finds the transitions of the NFA
 			{
 				break;
 			}
-			case 3:
+			case 3://finds the start state of the NFA
 			{
+				string tempState;
+				for (j = 0; j < len; j++)
+				{
+					if ((line[j] != ',') && (line[j] != '\n'))
+					{
+						tempState = tempState + line[j];
+					}
+				}
+
+				myNFA.iStart = -1;
+				for (j = 0; j < myNFA.iNumStates; j++)
+				{
+					if (tempState.compare(myNFA.sStates[j]) == 0)
+					{
+						myNFA.iStart = j;
+						j = myNFA.iNumStates;
+					}
+				}
+
+				if (myNFA.iStart == -1)
+				{
+					cout << "\n Start State is not in the set of states!\n";
+				}
+
 				break;
 			}
-			case 4:
-			{
-				break;
-			}
-			default:
+			case 4://finds the accept states of the NFA.
 			{
 				break;
 			}
