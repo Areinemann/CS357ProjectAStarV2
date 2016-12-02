@@ -14,7 +14,8 @@ struct nfa
 	int		iStart,
 			iNumStates,
 			iNumAlfa,
-			iNumTrans;
+			iNumTrans,
+			iNumFinalStates;
 	int*	iFinal;
 };
 
@@ -139,6 +140,36 @@ int main()
 			}
 			case 4://finds the accept states of the NFA.
 			{
+				int y = 0;
+				for (j = 0; j < len; j++)
+				{
+					if (line[j] == ',')
+					{
+						y++;
+					}
+					else if (line[j] != '\n')
+					{
+						temp[y] = temp[y] + line[j];
+					}
+				}
+
+				myNFA.iNumFinalStates = y;
+				myNFA.iFinal = new int[y];
+				
+				int m;
+
+				for (j = 0; j < y; j++)
+				{
+					for (m = 0; j < myNFA.iNumStates; m++)
+					{
+						if (temp[j].compare(myNFA.sStates[m]) == 0)
+						{
+							myNFA.iFinal[j] = m;
+							m = myNFA.iNumStates;
+						}
+					}
+				}
+
 				break;
 			}
 		}
