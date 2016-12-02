@@ -31,7 +31,8 @@ int main()
 	for (i = 0; i < 5; i++)
 	{
 		int j;
-		string line;
+		string	line,
+				temp;
 
 		getline(inputFile, line);
 
@@ -39,7 +40,14 @@ int main()
 		{
 			case 0:
 			{
-				for()
+				for (j = 0; j < line.length; j++)
+				{
+					if ((line[j] != '{') || (line[j] != '}'))
+					{
+
+					}
+				}
+
 				break;
 			}
 			case 1:
