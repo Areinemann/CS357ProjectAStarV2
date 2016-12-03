@@ -181,7 +181,7 @@ int main()
 
 				for (j = 0; j < y; j++)
 				{//loop through final states
-					for (m = 0; j < myNFA.iNumStates; m++)
+					for (m = 0; m < myNFA.iNumStates; m++)
 					{//loop through all states
 						if (temp[j].compare(myNFA.sStates[m]) == 0)
 						{//save the address of the states
