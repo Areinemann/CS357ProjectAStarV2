@@ -20,7 +20,99 @@ struct nfa
 	int*	iFinal;
 };
 
+//printNFA
+//
+//prints a NFA to a txt file
+//
+//nfaToPrint	the NFA being printed
+int printNFA(nfa nfaToPrint)
+{
+	//Variables
+	string		sFileName,
+				sStream;	//the output to write.
+	ofstream	outputFile;
+	int			i;			//counter
 
+	//get the file's location
+	cout << "\nPlease enter the file location you would like A* to print to:\n";
+	cin >> sFileName;
+
+	sFileName = sFileName + "\\AStarNFA.txt";
+
+	//start stream
+	sStream = "({";
+
+	//add states to stream
+	for (i = 0; i < nfaToPrint.iNumStates; i++)
+	{
+		sStream = sStream + nfaToPrint.sStates[i];
+		if(i < (nfaToPrint.iNumStates-1))//add the division between states
+			sStream = sStream + ",";
+	}
+
+	//close the states and open the alphabet
+	sStream = sStream + "},{";
+
+	//add alphabet to stream
+	for (i = 0; i < nfaToPrint.iNumAlfa; i++)
+	{
+		sStream = sStream + nfaToPrint.cAlfa[i];
+		if (i < (nfaToPrint.iNumAlfa - 1))//add the division between alphabet chars
+			sStream = sStream + ",";
+	}
+	
+	//close the alphabet and open transitions
+	sStream = sStream + "},{";
+
+	//TODO: add write transitions
+
+	//close the transitions and add division for start state.
+	sStream = sStream + "},";
+
+	//write the start state
+	if (nfaToPrint.iStart == -1)
+	{
+		sStream = sStream + " (Invalid Start State Specified) ";
+	}
+	else
+	{
+		sStream = sStream + nfaToPrint.sStates[nfaToPrint.iStart];
+	}
+
+	//divide start state and start final states
+	sStream = sStream + ",{";
+
+	//write final states
+	for (i = 0; i < nfaToPrint.iNumFinalStates; i++)
+	{
+		if (nfaToPrint.iFinal[i] == -1)
+		{
+			sStream = sStream + " (Invalid Accept State Specified) ";
+		}
+		else
+		{
+			sStream = sStream + nfaToPrint.sStates[nfaToPrint.iFinal[i]];
+		}
+		if (i < (nfaToPrint.iNumFinalStates - 1))//add the division between final states
+			sStream = sStream + ",";
+	}
+
+	//close final states and formal definition
+	sStream = sStream + "})\n";
+
+	//open the file
+	outputFile.open (sFileName);
+
+	//write the stream to file
+	outputFile << sStream;
+
+	//close the file
+	outputFile.close();
+
+	return 0;
+}
+
+//main function for retrieving an NFA and converting it into A* 
 int main()
 {
 	//Variables
@@ -32,7 +124,7 @@ int main()
 	
 
 	//get the file's location
-	cout	<< "\n Please enter the file location for the NFA or DFA you wish to convert to the formate A*:\n";
+	cout	<< "\nPlease enter the file location for the NFA or DFA you wish to convert to the formate A*:\n";
 	cin		>> sFileName;
 
 	//open the file
@@ -218,6 +310,8 @@ int main()
 
 				}
 
+				//TODO: add check for final states
+
 				break;
 			}
 
@@ -271,6 +365,8 @@ int main()
 
 	//close the file
 	inputFile.close();
+
+	printNFA(myNFA);
 
     return 0;
 }
