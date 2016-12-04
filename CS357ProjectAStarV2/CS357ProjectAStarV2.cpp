@@ -245,7 +245,7 @@ int main()
 	string* sTempString3;
 	int iParseingInt = 0;//This will be used to keep track of where I am in each tuple I am parsing. ex (0,1,2)
 	int iNumberOfTransitions = 0;
-	int iTempTranstionHolderSize = sTempTransitionHolder.size();
+	int iTempTranstionHolderSize = (int) sTempTransitionHolder.size();
 
 	for (int i = 0; i, i < iTempTranstionHolderSize; i++) {
 
@@ -258,7 +258,7 @@ int main()
 		}
 		if (iParseingInt == 0 && sTempTransitionHolder[i] != '(' && sTempTransitionHolder[i] != ',' && sTempTransitionHolder[i] != ')')
 		{
-			sTempString1[iParseingInt][i];
+			sTempString1[iParseingInt][i]=;
 		}
 
 
