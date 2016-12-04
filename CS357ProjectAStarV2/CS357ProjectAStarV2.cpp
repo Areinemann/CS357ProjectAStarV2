@@ -10,6 +10,7 @@ using namespace std;
 struct nfa
 {
 	string* sStates;
+	string*** sFinalTransitions;
 	char*	cAlfa;
 	int		iStart,
 			iNumStates,
@@ -27,6 +28,8 @@ int main()
 	ifstream	inputFile;
 	nfa			myNFA;		//NFA used in program
 	int			i;			//counter
+	string		sTempTransitionHolder; //this will store the transitions so we can use the data later.
+	
 
 	//get the file's location
 	cout	<< "\n Please enter the file location for the NFA or DFA you wish to convert to the formate A*:\n";
@@ -86,8 +89,12 @@ int main()
 				myNFA.sStates[y - 1] = "Qnewstart";
 
 
+
 				break;
 			}
+
+
+
 			case 1://finds the alphabet of the NFA
 			{
 				int y = 0;
@@ -119,12 +126,24 @@ int main()
 				
 				break;
 			}
+			
+			
+			
 			case 2://finds the transitions of the NFA
 			{
 				//Just store this line as a entire string. I will parse it below and put it into a triple array
-				//string[number of states][number of states][3 for the three alphabet charecters]
+				//for later: string[number of states][number of states][3 for the three alphabet charecters]
+				for (j = 0; j < len; j++) 
+				{
+					sTempTransitionHolder[j] = line[j];//This parses the transitions into a form we will be able to handle lower down
+				}
+
+
 				break;
 			}
+			
+			
+			
 			case 3://finds the start state of the NFA
 			{
 				string tempState;
@@ -154,6 +173,9 @@ int main()
 
 				break;
 			}
+			
+			
+			
 			case 4://finds the accept states of the NFA.
 			{
 				int y = 0;
@@ -183,20 +205,46 @@ int main()
 
 				for (j = 0; j < y; j++)
 				{//loop through final states
-					for (m = 0; j < myNFA.iNumStates; m++)
+					for (m = 0; m < myNFA.iNumStates; m++)
 					{//loop through all states
 						if (temp[j].compare(myNFA.sStates[m]) == 0)
 						{//save the address of the states
 							myNFA.iFinal[j] = m;
 							m = myNFA.iNumStates;
+							
 						}
 					}
+
+
 				}
 
 				break;
 			}
+
+		}
+
+	}
+	
+	//I think this is where I want to parse the 
+
+	//This sets the size of our triple array.
+	myNFA.sFinalTransitions[myNFA.iNumStates][myNFA.iNumStates][3];
+
+	//This sets all points in our array to 'z' this will allow us to check
+	for (int i = 0; i < myNFA.iNumStates; i++) {
+		for (int j = 0; j < myNFA.iNumStates; j++) {
+			for (int k = 0; k < 3; k++) {
+				myNFA.sFinalTransitions[i][j][k] = 'z';
+			}
 		}
 	}
+
+	//This is where we will parse and store the transitions
+	string sTempString1;
+	string sTempString2;
+	string sTempString3;
+
+
 
 	//close the file
 	inputFile.close();
