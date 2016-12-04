@@ -240,10 +240,33 @@ int main()
 	}
 
 	//This is where we will parse and store the transitions
-	string sTempString1;
-	string sTempString2;
-	string sTempString3;
+	string* sTempString1;
+	string* sTempString2;
+	string* sTempString3;
+	int iParseingInt = 0;//This will be used to keep track of where I am in each tuple I am parsing. ex (0,1,2)
+	int iNumberOfTransitions = 0;
+	int iTempTranstionHolderSize = sTempTransitionHolder.size();
 
+	for (int i = 0; i, i < iTempTranstionHolderSize; i++) {
+
+		if (sTempTransitionHolder[i] == '(')
+		{
+			iParseingInt = 0;
+		}
+		if (sTempTransitionHolder[i] == ',') {
+			iParseingInt++;
+		}
+		if (iParseingInt == 0 && sTempTransitionHolder[i] != '(' && sTempTransitionHolder[i] != ',' && sTempTransitionHolder[i] != ')')
+		{
+			sTempString1[iParseingInt][i];
+		}
+
+
+
+
+	}//end for loop
+
+	
 
 
 	//close the file
