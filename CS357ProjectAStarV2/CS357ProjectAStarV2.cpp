@@ -112,7 +112,7 @@ int printNFA(nfa nfaToPrint)
 	return 0;
 }
 
-
+//gets the index of a state in the NFA
 int indexOfState(string tempString, nfa myNfa) {
 
 	for (int i = 0; i < myNfa.iNumStates; i++) 
@@ -122,6 +122,25 @@ int indexOfState(string tempString, nfa myNfa) {
 				return i;//find something case
 			}
 		}
+	return -1;//find nothing case
+
+}
+
+//gets the index of a char in the NFA's alfphabet
+int indexOfAlfa(char charToFind, nfa myNfa) {
+
+	if (charToFind == 'E')
+	{
+		return myNfa.iNumAlfa-1
+	}
+
+	for (int i = 0; i < myNfa.iNumAlfa; i++)
+	{
+		if (charToFind == myNfa.cAlfa[i])
+		{
+			return i;//find something case
+		}
+	}
 	return -1;//find nothing case
 
 }
