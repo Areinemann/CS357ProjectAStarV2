@@ -51,7 +51,7 @@ int printNFA(nfa nfaToPrint)
 	}
 
 	//close the states and open the alphabet
-	sStream = sStream + "},{";
+	sStream = sStream + "},\n{";
 
 	//add alphabet to stream
 	for (i = 0; i < nfaToPrint.iNumAlfa-1; i++)
@@ -62,7 +62,7 @@ int printNFA(nfa nfaToPrint)
 	}
 	
 	//close the alphabet and open transitions
-	sStream = sStream + "},{";
+	sStream = sStream + "},\n{";
 
 	//write transitions
 	int count = 0;
@@ -95,7 +95,7 @@ int printNFA(nfa nfaToPrint)
 		}//for j
 	}//for i
 	//close the transitions and add division for start state.
-	sStream = sStream + "},";
+	sStream = sStream + "},\n";
 
 	//write the start state
 	if (nfaToPrint.iStart == -1)
@@ -108,7 +108,7 @@ int printNFA(nfa nfaToPrint)
 	}
 
 	//divide start state and start final states
-	sStream = sStream + ",{";
+	sStream = sStream + ",\n{";
 
 	//write final states
 	for (i = 0; i < nfaToPrint.iNumFinalStates; i++)
