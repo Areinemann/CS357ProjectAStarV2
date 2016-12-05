@@ -383,6 +383,10 @@ int main()
 		}//switch
 
 	}//for i: loops through input file
+
+
+	 //close the file
+	inputFile.close();
 	
 	//I think this is where I want to parse the 
 
@@ -488,11 +492,9 @@ int main()
 
 	}//end for loop
 
-	
 
+	//add transition from Qnewstart to old start
 
-	//close the file
-	inputFile.close();
 
 	//prints the nfa
 	printNFA(myNFA);
