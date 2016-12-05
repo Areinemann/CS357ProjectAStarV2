@@ -131,7 +131,7 @@ int indexOfAlfa(char charToFind, nfa myNfa) {
 
 	if (charToFind == 'E')
 	{
-		return myNfa.iNumAlfa-1
+		return myNfa.iNumAlfa - 1;
 	}
 
 	for (int i = 0; i < myNfa.iNumAlfa; i++)
