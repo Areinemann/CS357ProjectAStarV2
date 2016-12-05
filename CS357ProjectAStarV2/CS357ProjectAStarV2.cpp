@@ -150,13 +150,13 @@ int indexOfState(string tempString, nfa myNfa) {
 		}
 	return -1;//find nothing case
 
-}
+}//indexOfState
 
 //gets the index of a char in the NFA's alfphabet
 int indexOfAlfa(char charToFind, nfa myNfa) {
 
 	if (charToFind == 'E')
-	{
+	{//cehck if epsilon
 		return myNfa.iNumAlfa - 1;
 	}
 
@@ -169,7 +169,7 @@ int indexOfAlfa(char charToFind, nfa myNfa) {
 	}
 	return -1;//find nothing case
 
-}
+}//indexOfAlfa
 
 //main function for retrieving an NFA and converting it into A* 
 int main()
@@ -244,7 +244,7 @@ int main()
 
 
 				break;
-			}
+			}//case 0
 
 
 
@@ -280,7 +280,7 @@ int main()
 
 				
 				break;
-			}
+			}//case 1
 			
 			
 			
@@ -295,7 +295,7 @@ int main()
 
 
 				break;
-			}
+			}//case 2
 			
 			
 			
@@ -327,7 +327,7 @@ int main()
 				}
 
 				break;
-			}
+			}//case 3
 			
 			
 			
@@ -376,11 +376,11 @@ int main()
 				//TODO: add check for final states
 
 				break;
-			}
+			}//case 4
 
-		}
+		}//switch
 
-	}
+	}//for i: loops through input file
 	
 	//I think this is where I want to parse the 
 
@@ -442,7 +442,7 @@ int main()
 				iParseingInt++;
 			}
 			i++;
-		}
+		}//while (sTempTransitionHolder[i] != '|')
 		int levelDeep = 0;
 
 
@@ -452,7 +452,7 @@ int main()
 			//if ((myNFA.iFinalTransitions[indexOfState(sTempString1, myNFA)][indexOfState(sTempString2, myNFA)][levelDeep]).compare("")) {
 			//	levelDeep++;
 			//}
-		}
+		}//for jk
 
 		//This line stores the transitions in our data structure.
 			//myNFA.iFinalTransitions[indexOfState(sTempString1, myNFA)][indexOfState(sTempString2, myNFA)][levelDeep] = sTempString3;
@@ -482,8 +482,9 @@ int main()
 	//close the file
 	inputFile.close();
 
+	//prints the nfa
 	printNFA(myNFA);
 
     return 0;
-}
+}//main
 
