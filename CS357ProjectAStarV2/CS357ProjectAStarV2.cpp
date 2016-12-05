@@ -85,6 +85,8 @@ int printNFA(nfa nfaToPrint)
 					else
 					{
 						sStream = sStream + "(" + nfaToPrint.sStates[i] + "," + nfaToPrint.sStates[j] + "," + nfaToPrint.cAlfa[m] + ")";
+						count++;
+
 						if (count < nfaToPrint.iNumTrans)//if not last trans, add divider
 							sStream += ",";
 					}
