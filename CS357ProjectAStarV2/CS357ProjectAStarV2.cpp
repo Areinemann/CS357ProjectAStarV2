@@ -492,6 +492,11 @@ int main()
 
 	}//end for loop
 
+	for (int i = 0; i < myNFA.iNumFinalStates; i++) 
+	{
+		myNFA.iFinalTransitions[myNFA.iFinal[i]][myNFA.iStart][myNFA.iNumAlfa - 1] = 1;
+	}
+
 
 	//add transition from Qnewstart to old start
 
