@@ -54,7 +54,7 @@ int printNFA(nfa nfaToPrint)
 	sStream = sStream + "},{";
 
 	//add alphabet to stream
-	for (i = 0; i < nfaToPrint.iNumAlfa; i++)
+	for (i = 0; i < nfaToPrint.iNumAlfa-1; i++)
 	{
 		sStream = sStream + nfaToPrint.cAlfa[i];
 		if (i < (nfaToPrint.iNumAlfa - 1))//add the division between alphabet chars
@@ -64,8 +64,34 @@ int printNFA(nfa nfaToPrint)
 	//close the alphabet and open transitions
 	sStream = sStream + "},{";
 
-	//TODO: add write transitions
+	//write transitions
+	int count = 0;
+	for (i = 0; i < nfaToPrint.iNumStates; i++)
+	{//loop through cols of trans table
+		for (int j = 0; j < nfaToPrint.iNumStates; j++)
+		{//loop through rows of trans table
+			for (int m = 0; m < nfaToPrint.iNumAlfa; m++)
+			{//loop through alphabet
+				if (nfaToPrint.iFinalTransitions[i][j][m] != -1)
+				{//check trans exists
+					if (m == nfaToPrint.iNumAlfa-1)
+					{//check if epsilon
+						sStream = sStream + "(" + nfaToPrint.sStates[i] + "," + nfaToPrint.sStates[j] + ",E)";
+						count++;
 
+						if (count < nfaToPrint.iNumTrans)//if not last trans, add divider
+							sStream += ",";
+					}
+					else
+					{
+						sStream = sStream + "(" + nfaToPrint.sStates[i] + "," + nfaToPrint.sStates[j] + "," + nfaToPrint.cAlfa[m] + ")";
+						if (count < nfaToPrint.iNumTrans)//if not last trans, add divider
+							sStream += ",";
+					}
+				}
+			}//for m
+		}//for j
+	}//for i
 	//close the transitions and add division for start state.
 	sStream = sStream + "},";
 
@@ -95,7 +121,7 @@ int printNFA(nfa nfaToPrint)
 		}
 		if (i < (nfaToPrint.iNumFinalStates - 1))//add the division between final states
 			sStream = sStream + ",";
-	}
+	}//for i
 
 	//close final states and formal definition
 	sStream = sStream + "})\n";
@@ -110,7 +136,7 @@ int printNFA(nfa nfaToPrint)
 	outputFile.close();
 
 	return 0;
-}
+}//printNFA
 
 //gets the index of a state in the NFA
 int indexOfState(string tempString, nfa myNfa) {
