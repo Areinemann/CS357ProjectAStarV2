@@ -57,7 +57,7 @@ int printNFA(nfa nfaToPrint)
 	for (i = 0; i < nfaToPrint.iNumAlfa-1; i++)
 	{
 		sStream = sStream + nfaToPrint.cAlfa[i];
-		if (i < (nfaToPrint.iNumAlfa - 1))//add the division between alphabet chars
+		if (i < (nfaToPrint.iNumAlfa - 2))//add the division between alphabet chars
 			sStream = sStream + ",";
 	}
 	
@@ -392,7 +392,7 @@ int main()
 	{
 		myNFA.iFinalTransitions[i] = new int*[myNFA.iNumStates];
 
-		for (int dog = 0; dog< myNFA.iNumAlfa; dog++)
+		for (int dog = 0; dog< myNFA.iNumStates; dog++)
 		{
 			myNFA.iFinalTransitions[i][dog] = new int[myNFA.iNumAlfa];
 
