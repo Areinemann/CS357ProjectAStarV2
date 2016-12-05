@@ -361,7 +361,7 @@ int main()
 	//This is where we will parse and store the transitions
 	string sTempString1;//this will hold the first state of the transtion
 	string sTempString2;//this will hold the state you are in after the transition
-	string sTempString3;//this will be what it does the transtion on
+	char cTempString3;//this will be what it does the transtion on
 	int iParseingInt = 0;//This will be used to keep track of where I am in each tuple I am parsing. ex (0,1,2)
 	int iNumberOfTransitions = 0;
 	int iTempTranstionHolderSize = (int) sTempTransitionHolder.size();
@@ -389,7 +389,7 @@ int main()
 			if (iParseingInt == 2 && sTempTransitionHolder[i] != '|' && sTempTransitionHolder[i] != ',')
 			{
 				int i3Temp = 0;
-				sTempString3 += sTempTransitionHolder[i];
+				cTempString3 += sTempTransitionHolder[i];
 				i3Temp++;
 			}
 
@@ -423,7 +423,7 @@ int main()
 			iNumberOfTransitions++;
 			sTempString1 = "";
 			sTempString2 = "";
-			sTempString3 = "";
+			cTempString3 = NULL;
 		}
 
 
