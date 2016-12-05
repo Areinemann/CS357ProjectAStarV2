@@ -494,6 +494,7 @@ int main()
 
 	for (int i = 0; i < myNFA.iNumFinalStates; i++) 
 	{
+		//This adds the transtions from the final states to the start states on an epsilon transition.
 		myNFA.iFinalTransitions[myNFA.iFinal[i]][myNFA.iStart][myNFA.iNumAlfa - 1] = 1;
 	}
 
