@@ -10,7 +10,7 @@ using namespace std;
 struct nfa
 {
 	string* sStates;
-	string*** sFinalTransitions;
+	int*** iFinalTransitions;
 	char*	cAlfa;
 	int		iStart,
 			iNumStates,
@@ -112,6 +112,20 @@ int printNFA(nfa nfaToPrint)
 	return 0;
 }
 
+
+int indexOfState(string tempString, nfa myNfa) {
+
+	for (int i = 0; i < myNfa.iNumStates; i++) 
+		{
+			if (tempString.compare(myNfa.sStates[i]) == 0)
+			{	
+				return i;//find something case
+			}
+		}
+	return -1;//find nothing case
+
+}
+
 //main function for retrieving an NFA and converting it into A* 
 int main()
 {
@@ -129,6 +143,8 @@ int main()
 
 	//open the file
 	inputFile.open(sFileName);
+
+	
 
 	//loop through each line in the file: there should be 5 lines
 	for (i = 0; i < 5; i++)
@@ -209,12 +225,14 @@ int main()
 
 				//initialize the NFA's array of alfa chars
 				myNFA.cAlfa = new char[y];
-				myNFA.iNumAlfa = y;
+				myNFA.iNumAlfa = y+1;
 
 				for (j = 0; j < y; j++)
 				{//add chars to NFA
 					myNFA.cAlfa[j] = cTemp[j];
 				}
+
+
 				
 				break;
 			}
@@ -225,10 +243,10 @@ int main()
 			{
 				//Just store this line as a entire string. I will parse it below and put it into a triple array
 				//for later: string[number of states][number of states][3 for the three alphabet charecters]
-				for (j = 0; j < len; j++) 
-				{
-					sTempTransitionHolder[j] = line[j];//This parses the transitions into a form we will be able to handle lower down
-				}
+				//for (j = 0; j < len; j++) 
+				//{
+					sTempTransitionHolder = line;//This parses the transitions into a form we will be able to handle lower down
+				//}
 
 
 				break;
@@ -322,37 +340,90 @@ int main()
 	//I think this is where I want to parse the 
 
 	//This sets the size of our triple array.
-	myNFA.sFinalTransitions[myNFA.iNumStates][myNFA.iNumStates][3];
+	myNFA.iFinalTransitions = new int**[myNFA.iNumStates];
+	for (i = 0; i<myNFA.iNumStates; i++)
+	{
+		myNFA.iFinalTransitions[i] = new int*[myNFA.iNumStates];
 
-	//This sets all points in our array to 'z' this will allow us to check
-	for (int i = 0; i < myNFA.iNumStates; i++) {
-		for (int j = 0; j < myNFA.iNumStates; j++) {
-			for (int k = 0; k < 3; k++) {
-				myNFA.sFinalTransitions[i][j][k] = 'z';
+		for (int dog = 0; dog< myNFA.iNumAlfa; dog++)
+		{
+			myNFA.iFinalTransitions[i][dog] = new int[myNFA.iNumAlfa];
+
+			for (int k = 0; k < myNFA.iNumAlfa; k++)
+			{
+				myNFA.iFinalTransitions[i][dog][k] = -1;
 			}
+
 		}
 	}
-
+	
+	
 	//This is where we will parse and store the transitions
-	string* sTempString1;
-	string* sTempString2;
-	string* sTempString3;
+	string sTempString1;//this will hold the first state of the transtion
+	string sTempString2;//this will hold the state you are in after the transition
+	string sTempString3;//this will be what it does the transtion on
 	int iParseingInt = 0;//This will be used to keep track of where I am in each tuple I am parsing. ex (0,1,2)
 	int iNumberOfTransitions = 0;
 	int iTempTranstionHolderSize = (int) sTempTransitionHolder.size();
 
 	for (int i = 0; i, i < iTempTranstionHolderSize; i++) {
 
-		if (sTempTransitionHolder[i] == '(')
+		
+		while (sTempTransitionHolder[i] != '|')
 		{
+
+			if (iParseingInt == 0 && sTempTransitionHolder[i] != '|' && sTempTransitionHolder[i] != ',')
+			{
+				int i1Temp = 0;
+				sTempString1 = sTempString1 + sTempTransitionHolder[i];
+				i1Temp++;
+			}
+
+			if (iParseingInt == 1 && sTempTransitionHolder[i] != '|' && sTempTransitionHolder[i] != ',')
+			{
+				int i2Temp = 0;
+				sTempString2 += sTempTransitionHolder[i];
+				i2Temp++;
+			}
+
+			if (iParseingInt == 2 && sTempTransitionHolder[i] != '|' && sTempTransitionHolder[i] != ',')
+			{
+				int i3Temp = 0;
+				sTempString3 += sTempTransitionHolder[i];
+				i3Temp++;
+			}
+
+			if (sTempTransitionHolder[i] == ',') {
+				iParseingInt++;
+			}
+			i++;
+		}
+		int levelDeep = 0;
+
+
+
+		//************This needs to change******************
+		for (int jk = 0; jk < myNFA.iNumAlfa; jk ++ ) {
+			//if ((myNFA.iFinalTransitions[indexOfState(sTempString1, myNFA)][indexOfState(sTempString2, myNFA)][levelDeep]).compare("")) {
+			//	levelDeep++;
+			//}
+		}
+
+		//This line stores the transitions in our data structure.
+			//myNFA.iFinalTransitions[indexOfState(sTempString1, myNFA)][indexOfState(sTempString2, myNFA)][levelDeep] = sTempString3;
+		
+
+
+	//*************End Big changes*******************
+
+
+		//this resets the tracker to zero so we can parse the next transition.
+		if (sTempTransitionHolder[i] == '|') {
 			iParseingInt = 0;
-		}
-		if (sTempTransitionHolder[i] == ',') {
-			iParseingInt++;
-		}
-		if (iParseingInt == 0 && sTempTransitionHolder[i] != '(' && sTempTransitionHolder[i] != ',' && sTempTransitionHolder[i] != ')')
-		{
-			sTempString1[iParseingInt][i]=;
+			iNumberOfTransitions++;
+			sTempString1 = "";
+			sTempString2 = "";
+			sTempString3 = "";
 		}
 
 
