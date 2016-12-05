@@ -503,6 +503,7 @@ int main()
 	myNFA.iFinalTransitions[myNFA.iNumStates - 1][myNFA.iStart][myNFA.iNumAlfa - 1] = 1;
 	myNFA.iNumTrans++;
 
+	//set new start state
 	myNFA.iStart = myNFA.iNumStates - 1;
 
 	//prints the nfa
