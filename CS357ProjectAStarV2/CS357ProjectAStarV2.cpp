@@ -411,6 +411,8 @@ int main()
 	int iNumberOfTransitions = 0;
 	int iTempTranstionHolderSize = (int) sTempTransitionHolder.size();
 
+	myNFA.iNumTrans = 0;
+
 	for (int i = 0; i, i < iTempTranstionHolderSize; i++) {
 
 		
@@ -448,11 +450,19 @@ int main()
 
 
 		//************This needs to change******************
-		for (int jk = 0; jk < myNFA.iNumAlfa; jk ++ ) {
+		//for (int jk = 0; jk < myNFA.iNumAlfa; jk ++ ) {
+
+			int indexStateOne	= indexOfState(sTempString1, myNFA),
+				indexStateTwo	= indexOfState(sTempString2, myNFA),
+				indexAlfa		= indexOfAlfa(cTempString3, myNFA);
+
+			myNFA.iFinalTransitions[indexStateOne][indexStateTwo][indexAlfa] = 1;
+			myNFA.iNumTrans++;
+
 			//if ((myNFA.iFinalTransitions[indexOfState(sTempString1, myNFA)][indexOfState(sTempString2, myNFA)][levelDeep]).compare("")) {
 			//	levelDeep++;
 			//}
-		}//for jk
+		//}//for jk
 
 		//This line stores the transitions in our data structure.
 			//myNFA.iFinalTransitions[indexOfState(sTempString1, myNFA)][indexOfState(sTempString2, myNFA)][levelDeep] = sTempString3;
