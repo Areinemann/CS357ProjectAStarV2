@@ -125,6 +125,8 @@ int printNFA(nfa nfaToPrint)
 			sStream = sStream + ",";
 	}//for i
 
+	sStream += "," + nfaToPrint.sStates[nfaToPrint.iNumStates - 1];
+
 	//close final states and formal definition
 	sStream = sStream + "})\n";
 
